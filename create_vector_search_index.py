@@ -17,14 +17,14 @@
 
 import yaml
 
-with open('create_vector_search_index_config.yaml', 'r') as file:
+with open('config.yaml', 'r') as file:
     config = yaml.safe_load(file)
 
-vectorsearch_index_name =  config['vectorsearch_index_name']
-chunked_docs_table_name = config['chunked_docs_table_name']
-vector_search_endpoint_name = config['vector_search_endpoint_name']
-embedding_endpoint_name = config['embedding_endpoint_name']
-pipeline_type = config['pipeline_type']
+vectorsearch_index_name =  config['rag_chain']['retriever_config']['vector_search_index']
+chunked_docs_table_name = config['data']['tables_config']['chunked_docs_table_name']
+vector_search_endpoint_name = config['rag_chain']['databricks_resources']['vector_search_endpoint_name']
+embedding_endpoint_name = config['vector_search']['embedding_endpoint_name']
+pipeline_type = config['vector_search']['pipeline_type']
 
 
 # COMMAND ----------

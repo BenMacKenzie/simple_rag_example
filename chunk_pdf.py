@@ -47,9 +47,10 @@ import yaml
 # COMMAND ----------
 
 
-with open('chunk_pdf_config.yaml', 'r') as file:
+with open('config.yaml', 'r') as file:
     config = yaml.safe_load(file)
 
+config = config['data']
 data_pipeline_config = config['pipeline_config']
 embedding_config = config['embedding_config']
 tables_config = config['tables_config']

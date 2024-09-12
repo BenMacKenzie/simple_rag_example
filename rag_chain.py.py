@@ -44,11 +44,12 @@ def extract_chat_history(chat_messages_array):
 
 
 # Load the chain's configuration
-model_config = mlflow.models.ModelConfig(development_config="rag_chain_config.yaml")
+model_config = mlflow.models.ModelConfig(development_config="config.yaml")
 
-databricks_resources = model_config.get("databricks_resources")
-retriever_config = model_config.get("retriever_config")
-llm_config = model_config.get("llm_config")
+
+databricks_resources = model_config.get("rag_chain")["databricks_resources"]
+retriever_config = model_config.get("rag_chain")["retriever_config"]
+llm_config = model_config.get("rag_chain")["llm_config"]
 
 ############
 # Connect to the Vector Search Index

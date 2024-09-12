@@ -27,22 +27,24 @@ w = WorkspaceClient()
 
 # COMMAND ----------
 
+with open('config.yaml', 'r') as file:
+    config = yaml.safe_load(file)
 
-with open('rag_chain_config.yaml', 'r') as file:
-    rag_chain_config = yaml.safe_load(file)
+rag_chain_config = config['rag_chain']
 
 # COMMAND ----------
 
 
-with mlflow.start_run(run_name='inital_rag'):
-    # Tag to differentiate from the data pipeline runs
+mlflow.set_experiment(config['mlflow']['experiment_name'])
+with mlflow.start_run():
+    # Tag to differentiate from the data pipeline runs.  keep this??
     mlflow.set_tag("type", "chain")
 
     logged_chain_info = mlflow.langchain.log_model(
         lc_model=os.path.join(
             os.getcwd(), 'rag_chain.py'
         ),
-        model_config=rag_chain_config,  # Chain configuration set in 00_config
+        model_config=config,  
         artifact_path="chain",  # Required by MLflow
         input_example=rag_chain_config[
             "input_example"
@@ -83,8 +85,7 @@ chain.invoke(chain_input)
 
 # COMMAND ----------
 
-with open('deploy_agent_config.yaml', 'r') as file:
-    agent_deployment_config = yaml.safe_load(file)
+agent_deployment_config = config['agent']
 
 # COMMAND ----------
 
