@@ -55,11 +55,11 @@ rag_chain:
     vector_search_index: benmackenzie_catalog.rag_benmackenzie.my_agent_app_chunked_docs_gold_index
 
 agent:
-  agent_name: chat_bot
-  uc_model_name: benmackenzie_catalog.rag_benmackenzie.bmac_technical_pdf_rag_app
+  agent_name: simple_chatbot
+  uc_model_name: benmackenzie_catalog.simple_chatbot.bmac_technical_pdf_rag_app
 
 eval:
   evaluation_set_fqn: benmackenzie_catalog.rag_benmackenzie.my_agent_app_evaluation_set
 
 mlflow:
-  experiment_name: /Users/ben.mackenzie@databricks.com/chat_bot
+  experiment_name: /Users/ben.mackenzie@databricks.com/simple_chatbot_3

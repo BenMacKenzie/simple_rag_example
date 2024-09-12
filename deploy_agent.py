@@ -27,15 +27,18 @@ w = WorkspaceClient()
 
 # COMMAND ----------
 
+
 with open('config.yaml', 'r') as file:
     config = yaml.safe_load(file)
-
+    
 rag_chain_config = config['rag_chain']
 
 # COMMAND ----------
 
-
 mlflow.set_experiment(config['mlflow']['experiment_name'])
+
+# COMMAND ----------
+
 with mlflow.start_run():
     # Tag to differentiate from the data pipeline runs.  keep this??
     mlflow.set_tag("type", "chain")
@@ -73,6 +76,15 @@ chain_input = {
 }
 chain = mlflow.langchain.load_model(logged_chain_info.model_uri)
 chain.invoke(chain_input)
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC ## Deploy or Evaluate?
+# MAGIC If you already have an eval set and want to evaluate the model without deploying to a serving endpoint (and deploying a review app) you can proceed directly to [evaluate_agent_quality](https://e2-demo-field-eng.cloud.databricks.com/?o=1444828305810485#notebook/2651067759711761)
+# MAGIC
+# MAGIC Otherwise continue to the next cell
+# MAGIC
 
 # COMMAND ----------
 
@@ -134,6 +146,10 @@ while w.serving_endpoints.get(deployment_info.endpoint_name).state.ready == Endp
     time.sleep(30)
 
 print(f"\n\nReview App: {deployment_info.review_app_url}")
+
+# COMMAND ----------
+
+uc_registered_model_info
 
 # COMMAND ----------
 

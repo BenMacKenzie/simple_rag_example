@@ -45,8 +45,15 @@ mlflow.set_experiment(config['mlflow']['experiment_name'])
 
 # COMMAND ----------
 
-#why can't I see runs associated with experiment in mlfow nav?  maybe becasue I am on serverless?
-run_id = '0a66f37de8434e97baffb0417c82bb16'
+#need to do this for mlflow experiment to show up in UI.  You only need to run it once per experiment
+with mlflow.start_run(run_name="evaluation-init") as run:
+    mlflow.set_tag("version", "v1.0")
+    
+
+# COMMAND ----------
+
+#Use mlflow nav bar to find the run, navigate to it and copy run_id
+run_id = '623bd2140f394fd3a7f1eb59b89eff94'
 
 
 # COMMAND ----------
