@@ -372,3 +372,9 @@ print(f"Produced a total of {chunked_files_df.count()} chunks.")
 display(chunked_files_df)
 
 
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC ## Next Step    
+# MAGIC ####  Use UI to create a vector index or run 02_create_vector_search_index

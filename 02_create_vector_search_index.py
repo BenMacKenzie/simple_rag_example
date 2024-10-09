@@ -91,3 +91,9 @@ if create_index:
 index = vsc.get_index(endpoint_name=vector_search_endpoint_name, index_name=vectorsearch_index_name)
 index.similarity_search(columns=["chunked_text", "chunk_id", "path"], query_text="what is ARES?")
 
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC ## Next Step:
+# MAGIC ### Deploy the agent 03_deploy_agent

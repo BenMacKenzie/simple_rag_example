@@ -82,12 +82,15 @@ inference_table_name = endpoint_config.state.payload_table.name
 inference_table_catalog = endpoint_config.catalog_name
 inference_table_schema = endpoint_config.schema_name
 
+
 # Cleanly formatted tables
 assessment_log_table_name = f"{inference_table_catalog}.{inference_table_schema}.`{inference_table_name}_assessment_logs`"
 request_log_table_name = f"{inference_table_catalog}.{inference_table_schema}.`{inference_table_name}_request_logs`"
 
 print(f"Assessment logs: {assessment_log_table_name}")
 print(f"Request logs: {request_log_table_name}")
+
+
 
 
 assessment_log_df = _dedup_assessment_log(spark.table(assessment_log_table_name))
@@ -140,3 +143,12 @@ display(requests_with_feedback_df.select(
 eval_set = requests_with_feedback_df[["request", "request_id", "expected_response", "expected_retrieved_context", "source_user", "source_tag"]]
 
 eval_set.write.format("delta").mode("overwrite").saveAsTable(EVALUATION_SET_FQN)
+
+# COMMAND ----------
+
+# MAGIC %sql
+# MAGIC select * from  benmackenzie_catalog.rag_demo.my_agent_app_evaluation_set
+
+# COMMAND ----------
+
+display(eval_set)

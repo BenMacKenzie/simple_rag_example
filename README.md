@@ -23,14 +23,12 @@ if you already have chunked content in a delta table:
 ##### Option 3:
 you are starting from scratch
 
-1. update chunk_pdf_config.yaml
-2. upload pdf docs to volume specified in chunc_pdf_config.yaml
+1. update config.yaml
+2. upload pdf docs to volume specified in config.yaml
 3. run chunk_pdf
 4. update create_vector_search_index_config.yaml.
 5. run create_vector_search_index notebook (or create index through UI).
-6. update deploy_agent_config.yaml 
-7. update rag_chain_config.yaml 
-8. run deploy_agent notebook
+6. run deploy_agent notebook
 
 
 

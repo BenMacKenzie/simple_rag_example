@@ -74,7 +74,11 @@ chain_input = {
         }
     ]
 }
-chain = mlflow.langchain.load_model(logged_chain_info.model_uri)
+
+model_uri= logged_chain_info.model_uri
+
+
+chain = mlflow.langchain.load_model(model_uri)
 chain.invoke(chain_input)
 
 # COMMAND ----------
@@ -128,7 +132,7 @@ mlflow.set_registry_uri('databricks-uc')
 UC_MODEL_NAME = agent_deployment_config['uc_model_name']
 
 # Register the chain to UC
-uc_registered_model_info = mlflow.register_model(model_uri=logged_chain_info.model_uri, name=UC_MODEL_NAME)
+uc_registered_model_info = mlflow.register_model(model_uri=model_uri, name=UC_MODEL_NAME)
 
 # Deploy to enable the Review APP and create an API endpoint
 deployment_info = agents.deploy(model_name=UC_MODEL_NAME, model_version=uc_registered_model_info.version)
@@ -146,10 +150,6 @@ while w.serving_endpoints.get(deployment_info.endpoint_name).state.ready == Endp
     time.sleep(30)
 
 print(f"\n\nReview App: {deployment_info.review_app_url}")
-
-# COMMAND ----------
-
-uc_registered_model_info
 
 # COMMAND ----------
 
