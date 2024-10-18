@@ -4,11 +4,18 @@ from bs4 import BeautifulSoup
 import os
 from urllib.parse import urljoin, urlparse
 
-# Define the URL of the website you want to scrape
-base_url = "https://kumo.ai"
-output_dir = "/Volumes/benmackenzie_catalog/cookbook/source_docs_kumo"
 
-# Create the directory to store the HTML files
+
+with open('config.yaml', 'r') as file:
+    config = yaml.safe_load(file)
+
+config = config['data']
+tables_config = config['tables_config']
+
+output_dir = tables_config['source_path']
+
+base_url = "https://kumo.ai"
+
 
 
 # Keep track of visited URLs to avoid duplicates
