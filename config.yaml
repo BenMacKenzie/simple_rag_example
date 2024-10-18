@@ -1,9 +1,9 @@
 data:
   tables_config:
-    source_path: /Volumes/benmackenzie_catalog/rag_demo/source_docs
-    raw_files_table_name: benmackenzie_catalog.rag_demo.my_agent_app_raw_files_bronze
-    parsed_docs_table_name: benmackenzie_catalog.rag_demo.my_agent_app_parsed_docs_sliver
-    chunked_docs_table_name: benmackenzie_catalog.rag_demo.my_agent_app_chunked_docs_gold
+    source_path: /Volumes/benmackenzie_catalog/cookbook/source_docs_kumo
+    raw_files_table_name: benmackenzie_catalog.cookbook.my_agent_app_raw_files_bronze
+    parsed_docs_table_name: benmackenzie_catalog.cookbook.my_agent_app_parsed_docs_sliver
+    chunked_docs_table_name: benmackenzie_catalog.cookbook.my_agent_app_chunked_docs_gold
 
   embedding_config:
     embedding_endpoint_name: databricks-gte-large-en

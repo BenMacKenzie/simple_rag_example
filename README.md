@@ -29,7 +29,7 @@ if you already have chunked content in a delta table:
 you are starting from scratch
 
 1. update config.yaml
-2. run 01_chunk_pdf notebook
+2. run 01_chunk_pdf notebook OR run 01_chunk_html (optionally run 00_scrape_website to gather html data)
 3. run 02_create_vector_search_index notebook (or create index through UI).
 4. run 03_deploy_agent notebook
 5. run 04_create_evaluation_set notebook
