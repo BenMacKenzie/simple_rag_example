@@ -27,7 +27,6 @@ w = WorkspaceClient()
 
 # COMMAND ----------
 
-
 with open('config.yaml', 'r') as file:
     config = yaml.safe_load(file)
     
@@ -35,7 +34,15 @@ rag_chain_config = config['rag_chain']
 
 # COMMAND ----------
 
+rag_chain_config['input_example']
+
+# COMMAND ----------
+
 mlflow.set_experiment(config['mlflow']['experiment_name'])
+
+# COMMAND ----------
+
+type(rag_chain_config['input_example'])
 
 # COMMAND ----------
 
@@ -70,7 +77,7 @@ chain_input = {
     "messages": [
         {
             "role": "user",
-            "content": "What is ares?", # Replace with a question relevant to your use case
+            "content": "What is Kumo?", # Replace with a question relevant to your use case
         }
     ]
 }

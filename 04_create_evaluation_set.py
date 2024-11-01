@@ -147,8 +147,4 @@ eval_set.write.format("delta").mode("overwrite").saveAsTable(EVALUATION_SET_FQN)
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC select * from  benmackenzie_catalog.rag_demo.my_agent_app_evaluation_set
-
-# COMMAND ----------
-
-display(eval_set)
+# MAGIC select * from benmackenzie_catalog.cookbook.kumo_bot_evaluation

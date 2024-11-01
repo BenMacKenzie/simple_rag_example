@@ -25,7 +25,7 @@ vector_search:
 rag_chain:
   databricks_resources:
     llm_endpoint_name: databricks-meta-llama-3-1-70b-instruct
-    vector_search_endpoint_name: one-env-shared-endpoint-11
+    vector_search_endpoint_name: one-env-shared-endpoint-12
   input_example:
     messages:
     - content: What is RAG?
@@ -52,14 +52,14 @@ rag_chain:
       chunk_text: chunked_text
       document_uri: path
       primary_key: chunk_id
-    vector_search_index: benmackenzie_catalog.rag_demo.my_agent_app_chunked_docs_gold_index
+    vector_search_index: benmackenzie_catalog.cookbook.my_agent_app_chunked_docs_gold_index
 
 agent:
   agent_name: simple_chatbot
-  uc_model_name: benmackenzie_catalog.simple_chatbot.bmac_technical_pdf_rag_app
+  uc_model_name: benmackenzie_catalog.chatbots.kumo_bot
 
 eval:
-  evaluation_set_fqn: benmackenzie_catalog.rag_demo.my_agent_app_evaluation_set
+  evaluation_set_fqn: benmackenzie_catalog.cookbook.kumo_bot_evaluation
 
 mlflow:
-  experiment_name: /Users/ben.mackenzie@databricks.com/chatbot_oct7
+  experiment_name: /Users/ben.mackenzie@databricks.com/kumo_bot
