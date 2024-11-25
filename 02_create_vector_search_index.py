@@ -4,7 +4,7 @@
 
 # COMMAND ----------
 
-# MAGIC %pip install -qqqq -U pypdf==4.1.0 databricks-vectorsearch transformers==4.41.1 torch==2.3.0 tiktoken==0.7.0 langchain-text-splitters==0.2.2 mlflow mlflow-skinny
+# MAGIC %pip install -qqqq -U pypdf==4.1.0 databricks-vectorsearch transformers==4.41.1 torch==2.3.0 tiktoken==0.7.0 langchain-text-splitters==0.2.2 mlflow mlflow-skinny pyyaml
 # MAGIC dbutils.library.restartPython()
 
 # COMMAND ----------
@@ -89,7 +89,7 @@ if create_index:
 
 # DBTITLE 1,Testing the Index
 index = vsc.get_index(endpoint_name=vector_search_endpoint_name, index_name=vectorsearch_index_name)
-index.similarity_search(columns=["chunked_text", "chunk_id", "path"], query_text="what is ARES?")
+index.similarity_search(columns=["chunked_text", "chunk_id", "path"], query_text="what does Kumo do?")
 
 
 # COMMAND ----------

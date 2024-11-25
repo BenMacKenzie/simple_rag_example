@@ -121,10 +121,6 @@ if raw_files_df.count() == 0:
 
 # COMMAND ----------
 
-
-
-# COMMAND ----------
-
 from markdownify import markdownify as md
 import markdownify
 import re

@@ -5,7 +5,11 @@
 # COMMAND ----------
 
 # MAGIC %pip install mlflow mlflow[databricks] databricks-agents
-# MAGIC dbutils.library.restartPython()
+# MAGIC
+
+# COMMAND ----------
+
+dbutils.library.restartPython()
 
 # COMMAND ----------
 
@@ -25,12 +29,20 @@ tables_config = config['data']['tables_config']
 
 parsed_docs_table_name = tables_config['parsed_docs_table_name']
 
+EVALUATION_SET_FQN =  config['eval']['synthetic_evaluation_set_fqn']
+
 # COMMAND ----------
 
 docs = spark.sql(f"select path as doc_uri, doc_parsed_contents.parsed_content as content from {parsed_docs_table_name}")
 
 # COMMAND ----------
 
+display(docs)
+
+# COMMAND ----------
+
+
+# Update the guildelines as needed
 
 guidelines = """
 # Task Description
@@ -60,12 +72,16 @@ evals = generate_evals_df(
     guidelines=guidelines
 )
 
-display(evals)
 
 
 
 
 
+
+# COMMAND ----------
+
+evals_spark = spark.createDataFrame(evals)
+evals_spark.write.format("delta").mode("overwrite").saveAsTable(EVALUATION_SET_FQN)
 
 # COMMAND ----------
 

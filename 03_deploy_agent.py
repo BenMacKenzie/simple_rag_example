@@ -1,5 +1,5 @@
 # Databricks notebook source
-# MAGIC %pip install -U -qqqq databricks-agents mlflow mlflow-skinny databricks-vectorsearch langchain==0.2.11 langchain_core==0.2.23 langchain_community==0.2.10 
+# MAGIC %pip install -U -qqqq databricks-agents mlflow mlflow-skinny databricks-vectorsearch langchain==0.2.11 langchain_core==0.2.23 langchain_community==0.2.10 pyyaml
 # MAGIC dbutils.library.restartPython()
 
 # COMMAND ----------
@@ -42,17 +42,13 @@ mlflow.set_experiment(config['mlflow']['experiment_name'])
 
 # COMMAND ----------
 
-type(rag_chain_config['input_example'])
-
-# COMMAND ----------
-
 with mlflow.start_run():
     # Tag to differentiate from the data pipeline runs.  keep this??
     mlflow.set_tag("type", "chain")
 
     logged_chain_info = mlflow.langchain.log_model(
         lc_model=os.path.join(
-            os.getcwd(), 'rag_chain.py'
+            os.getcwd(), 'rag_chain'
         ),
         model_config=config,  
         artifact_path="chain",  # Required by MLflow

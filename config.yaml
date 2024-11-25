@@ -1,9 +1,9 @@
 data:
   tables_config:
     source_path: /Volumes/benmackenzie_catalog/cookbook/source_docs_kumo
-    raw_files_table_name: benmackenzie_catalog.cookbook.my_agent_app_raw_files_bronze
-    parsed_docs_table_name: benmackenzie_catalog.cookbook.my_agent_app_parsed_docs_sliver
-    chunked_docs_table_name: benmackenzie_catalog.cookbook.my_agent_app_chunked_docs_gold
+    raw_files_table_name: benmackenzie_catalog.cookbook.kumo_raw_files_bronze
+    parsed_docs_table_name: benmackenzie_catalog.cookbook.kumo_parsed_docs_sliver
+    chunked_docs_table_name: benmackenzie_catalog.cookbook.kumo_chunked_docs_gold
 
   embedding_config:
     embedding_endpoint_name: databricks-gte-large-en
@@ -28,7 +28,7 @@ rag_chain:
     vector_search_endpoint_name: one-env-shared-endpoint-12
   input_example:
     messages:
-    - content: What is RAG?
+    - content: Does Kumo automatically create features?
       role: user
   llm_config:
     llm_parameters:
@@ -52,14 +52,17 @@ rag_chain:
       chunk_text: chunked_text
       document_uri: path
       primary_key: chunk_id
-    vector_search_index: benmackenzie_catalog.cookbook.my_agent_app_chunked_docs_gold_index
+    vector_search_index: benmackenzie_catalog.cookbook.kumo_chunked_docs_gold_index
 
 agent:
   agent_name: simple_chatbot
-  uc_model_name: benmackenzie_catalog.chatbots.kumo_bot
+  uc_model_name: benmackenzie_catalog.cookbook.kumo_bot
 
 eval:
-  evaluation_set_fqn: benmackenzie_catalog.cookbook.kumo_bot_evaluation
+  
+  review_app_evaluation_set_fqn: benmackenzie_catalog.cookbook.kumo_bot_evaluation_r
+  synthetic_evaluation_set_fqn: benmackenzie_catalog.cookbook.kumo_bot_evaluation_2
+  
 
 mlflow:
   experiment_name: /Users/ben.mackenzie@databricks.com/kumo_bot

@@ -23,7 +23,7 @@ with open('config.yaml', 'r') as file:
 
 # COMMAND ----------
 
-EVALUATION_SET_FQN =  config['eval']['evaluation_set_fqn']
+EVALUATION_SET_FQN =  config['eval']['synthetic_evaluation_set_fqn']
 df = spark.table(EVALUATION_SET_FQN)
 eval_df = df.toPandas()
 display(eval_df)
@@ -53,7 +53,7 @@ with mlflow.start_run(run_name="evaluation-init") as run:
 # COMMAND ----------
 
 #Use mlflow nav bar to find the run, navigate to it and copy run_id
-run_id = '832215920441442981ac80e6bb513516'
+run_id = 'f1e99e7d29014f7685bd8d01b074387f'
 
 
 # COMMAND ----------
@@ -73,10 +73,15 @@ pip_requirements = mlflow.pyfunc.get_model_dependencies(f"runs:/{run_id}/chain")
 
 # COMMAND ----------
 
+# MAGIC %restart_python
+
+# COMMAND ----------
+
 # MAGIC %md
 # MAGIC ## Run evaluation on the POC app
 
 # COMMAND ----------
+
 
 with mlflow.start_run(run_id=run_id):
     # Evaluate

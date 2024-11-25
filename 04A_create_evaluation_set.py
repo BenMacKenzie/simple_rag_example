@@ -39,10 +39,6 @@ w = WorkspaceClient()
 
 # COMMAND ----------
 
-
-
-# COMMAND ----------
-
 # MAGIC %md ## Get the request and assessment log tables
 # MAGIC
 # MAGIC These tables are updated every ~hour with data from the raw Inference Table.
@@ -55,7 +51,7 @@ with open('config.yaml', 'r') as file:
     config = yaml.safe_load(file)
 
 UC_MODEL_NAME = config['agent']['uc_model_name']
-EVALUATION_SET_FQN =  config['eval']['evaluation_set_fqn']
+EVALUATION_SET_FQN =  config['eval']['review_app_evaluation_set_fqn']
 
 
 # COMMAND ----------
@@ -146,5 +142,4 @@ eval_set.write.format("delta").mode("overwrite").saveAsTable(EVALUATION_SET_FQN)
 
 # COMMAND ----------
 
-# MAGIC %sql
-# MAGIC select * from benmackenzie_catalog.cookbook.kumo_bot_evaluation
+display(spark.sql(f"select * from {EVALUATION_SET_FQN}"))
