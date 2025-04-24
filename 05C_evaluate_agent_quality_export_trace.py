@@ -11,11 +11,6 @@ from databricks import agents
 
 # COMMAND ----------
 
-# MAGIC %md
-# MAGIC # Load your evaluation set from the previous step
-
-# COMMAND ----------
-
 with open('config.yaml', 'r') as file:
     config = yaml.safe_load(file)
 
@@ -23,24 +18,38 @@ with open('config.yaml', 'r') as file:
 
 # COMMAND ----------
 
-EVALUATION_SET_FQN =  config['eval']['synthetic_evaluation_set_fqn']
-df = spark.table(EVALUATION_SET_FQN)
-eval_df = df.toPandas()
-display(eval_df)
-
-# COMMAND ----------
-
-# MAGIC %md
-# MAGIC # Evaluate the POC application
-
-# COMMAND ----------
-
-# MAGIC %md
-# MAGIC ## Get the MLflow run of the POC application 
-
-# COMMAND ----------
-
 mlflow.set_experiment(config['mlflow']['experiment_name'])
+
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC not clear that this is fully baked yet.  from the monitoring UI, select some traces and press 'export'.  
+# MAGIC
+# MAGIC you need to do this before you can export traces to a dataset
+
+# COMMAND ----------
+
+from databricks.agents import datasets
+import mlflow
+
+# The following call creates an empty dataset. To delete a dataset, use datasets.delete_dataset(uc_table_name).
+
+dataset = datasets.create_dataset("benmackenzie_catalog.cookbook.dataset_a")
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC once you have exported some traces you need to do the following:
+
+# COMMAND ----------
+
+from databricks.agents import datasets
+datasets.get_dataset("benmackenzie_catalog.cookbook.dataset_a").insert([])
+
+# COMMAND ----------
+
+df = spark.table("benmackenzie_catalog.cookbook.dataset_a")
 
 
 # COMMAND ----------
@@ -53,7 +62,7 @@ with mlflow.start_run(run_name="evaluation-init") as run:
 # COMMAND ----------
 
 #Use mlflow nav bar to find the run, navigate to it and copy run_id
-run_id = '9b51a7e3f38340a6ad805b06f7be7c74'
+run_id = '05f15671c2524a7aa85e634f6b5950b4'
 
 
 # COMMAND ----------
@@ -73,10 +82,6 @@ pip_requirements = mlflow.pyfunc.get_model_dependencies(f"runs:/{run_id}/chain")
 
 # COMMAND ----------
 
-# MAGIC %restart_python
-
-# COMMAND ----------
-
 # MAGIC %md
 # MAGIC ## Run evaluation on the POC app
 
@@ -87,7 +92,7 @@ import mlflow
 with mlflow.start_run(run_id=run_id):
     # Evaluate
     eval_results = mlflow.evaluate(
-        data=eval_df,
+        data=df,
         model=f"runs:/{run_id}/chain",  # replace `chain` with artifact_path that you used when calling log_model.  By default, this is `chain`.
         model_type="databricks-agent",
     )
